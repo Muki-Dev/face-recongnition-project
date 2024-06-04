@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
 import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
+import Signin from './components/Signin/Signin';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -59,6 +60,7 @@ displayFaceBox = (box) => {
       <div className='App'>
           <ParticlesBg type="circle" bg={true} />
           <Navigation />
+          <Signin />
           <Logo />
           <Rank />
           <ImageLinkForm 
