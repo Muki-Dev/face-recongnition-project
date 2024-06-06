@@ -12,9 +12,48 @@ import './App.css';
 
 
 // You must add your own key from clarifai
-const app = new Clarifai.App({
- apiKey: 'YOUR_KEY'
-});
+// const app = new Clarifai.App({
+//  apiKey: 'YOUR_KEY'
+// });
+
+ const returnClarifaiRequestOptions = (imageUrl) => {
+    
+    // Your PAT (Personal Access Token) can be found in the Account's Security section
+    const PAT = 'YOUR_PAT';
+    // Specify the correct user_id/app_id pairings
+    // Since you're making inferences outside your app's scope
+    const USER_ID = 't6u13lb9e7m7';       
+    const APP_ID = 'test';
+    // Change these to whatever model and image URL you want to use
+    const MODEL_ID = 'face-detection';   
+    const IMAGE_URL = imageUrl;
+
+    const raw = JSON.stringify({
+        "user_app_id": {
+            "user_id": USER_ID,
+            "app_id": APP_ID
+        },
+        "inputs": [
+            {
+                "data": {
+                    "image": {
+                        "url": IMAGE_URL
+                    }
+                }
+            }
+        ]
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Key ' + PAT
+        },
+        body: raw
+    };
+    return requestOptions;
+ }
 
 class App extends Component{
   constructor(){
@@ -29,7 +68,7 @@ class App extends Component{
   }
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.response.outputs[0].data.regions[0].region_info.bounding_box;
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('imageInput');
     const width = Number(image.width);
     const height= Number(image.height);
@@ -42,7 +81,6 @@ class App extends Component{
   }
 
 displayFaceBox = (box) => {
-  console.log(box);
   this.setState({box:box});
 }
 
@@ -52,10 +90,12 @@ displayFaceBox = (box) => {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, 
-      this.state.input)
-    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-    .catch(err => console.log(err));
+    // app.models.predict(Clarifai.FACE_DETECT_MODEL,this.state.input)
+
+    fetch("https://api.clarifai.com/v2/models/" + 'face-detection' +"/outputs", returnClarifaiRequestOptions(this.state.input))
+        .then(response => response.json())
+        .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+        .catch(err => console.log(err));
     }
 
     onRouteChange = (route) => {
