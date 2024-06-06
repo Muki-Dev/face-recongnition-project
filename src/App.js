@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
-import Clarifai from 'clarifai';
+// import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
