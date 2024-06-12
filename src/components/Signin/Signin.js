@@ -2,7 +2,7 @@ import React from 'react';
 
 class Signin extends React.Component{
 	constructor(props){
-		super(props);
+		super(props)
 		this.state = {
 			signInEmail: '',
 			signInPassword: ''
@@ -17,15 +17,30 @@ class Signin extends React.Component{
 		this.setState({signInPassword: event.target.value})
 	}
 
-	onSubmitButton = () => {
-		console.log(this.state);
-		this.props.onRouteChange('home');
+	onSubmitSignIn = () => {
+		fetch('http://localhost:3000/signin',{
+			method: 'post',
+			headers: {'Content-Type' : 'application/json'},
+			body:JSON.stringify({
+				email: this.state.signInEmail,
+				Password: this.state.signInPassword
+			})
+		})
+		.then(response => response.json())
+		.then(data => {
+			if(data === 'success'){
+				this.props.onRouteChange('home');
+			}
+		})
+		
 	}
 
 	render(){
+
 		const {onRouteChange} = this.props;
-		return(
-<article className="br3 ba  b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+
+	return(
+	<article className="br3 ba  b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
 	<main className="pa4 black-80">
 	  <div className="measure">
 	    <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -53,7 +68,7 @@ class Signin extends React.Component{
 	      <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
 	       type="submit" 
 	       value="Sign in"
-	       onClick ={this.onSubmitButton}
+	       onClick ={this.onSubmitSignIn}
 	        />
 	    </div>
 	    <div className="lh-copy mt3">
