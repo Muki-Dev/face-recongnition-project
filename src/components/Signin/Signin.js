@@ -4,17 +4,17 @@ class Signin extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			signInEmail: '',
-			signInPassword: ''
+			email: '',
+			password: ''
 		}
 	}
 
-	onChangeEmail = (event) => {
-		this.setState({signInEmail: event.target.value})
+	onEmailChange = (event) => {
+		this.setState({email: event.target.value})
 	}
 
-	onChangePassword = (event) => {
-		this.setState({signInPassword: event.target.value})
+	onPasswordChange = (event) => {
+		this.setState({password: event.target.value})
 	}
 
 	onSubmitSignIn = () => {
@@ -22,8 +22,8 @@ class Signin extends React.Component{
 			method: 'post',
 			headers: {'Content-Type' : 'application/json'},
 			body:JSON.stringify({
-				email: this.state.signInEmail,
-				Password: this.state.signInPassword
+				email: this.state.email,
+				password: this.state.password
 			})
 		})
 		.then(response => response.json())
@@ -52,7 +52,7 @@ class Signin extends React.Component{
 	        type="email" 
 	        name="email-address"
 	          id="email-address"
-	          onChange = {this.onChangeEmail}
+	          onChange = {this.onEmailChange}
 	         />
 	      </div>
 	      <div className="mv3">
@@ -61,7 +61,7 @@ class Signin extends React.Component{
 	        type="password" 
 	        name="password" 
 	         id="password"
-	         onChange = {this.onChangePassword}
+	         onChange = {this.onPasswordChange}
 	       />
 	      </div>
 	    </fieldset>
