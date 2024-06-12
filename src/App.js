@@ -68,7 +68,7 @@ class App extends Component{
         id:'',
         name:'',
         email:'',
-        entries:'',
+        entries: 0,
         joined:''
       }
     }
@@ -114,6 +114,16 @@ displayFaceBox = (box) => {
       this.setState({route: route})
     }
 
+    loadUser = (data) => {
+      this.setState({user: {
+        id:data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }})
+    }
+
   render(){
 
     const { route,isSignedIn,box,imageUrl }  = this.state;
@@ -133,7 +143,7 @@ displayFaceBox = (box) => {
             </div>
             :(
                 route === 'signin' ?  <Signin onRouteChange={this.onRouteChange} /> 
-                : <Register onRouteChange={this.onRouteChange} />
+                : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
 
               )
             
