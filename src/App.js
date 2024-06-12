@@ -134,7 +134,7 @@ displayFaceBox = (box) => {
           { route === 'home'
             ? <div>
                 <Logo />
-                <Rank />
+                <Rank name={this.state.user.name} entries={this.state.user.entries} />
                 <ImageLinkForm 
                 onInputChange={this.onInputChange} 
                 onButtonSubmit={this.onButtonSubmit} 
@@ -142,7 +142,7 @@ displayFaceBox = (box) => {
                 <FaceRecognition box={box} imageUrl={imageUrl} />
             </div>
             :(
-                route === 'signin' ?  <Signin onRouteChange={this.onRouteChange} /> 
+                route === 'signin' ?  <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} /> 
                 : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
 
               )
