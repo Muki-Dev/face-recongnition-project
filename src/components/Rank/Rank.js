@@ -7,7 +7,7 @@ const Rank = ({name,entries}) => {
 		     	{`${name} your current rank is...`}
 		     </div>
 		     <div className='white f1'>
-		     	${`entries`}
+		     	{entries}
 		     </div>
     	</div>
 		)
