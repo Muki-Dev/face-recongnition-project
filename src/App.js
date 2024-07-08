@@ -19,7 +19,7 @@ import './App.css';
  const returnClarifaiRequestOptions = (imageUrl) => {
     
     // Your PAT (Personal Access Token) can be found in the Account's Security section
-    // const PAT = 'YOUR_PAT';
+    const PAT = 'YOUR_PAT_KEY';
     // Specify the correct user_id/app_id pairings
     // Since you're making inferences outside your app's scope
     const USER_ID = 't6u13lb9e7m7';       
@@ -55,23 +55,25 @@ import './App.css';
     return requestOptions;
  }
 
+ const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user:{
+    id:'',
+    name:'',
+    email:'',
+    entries: 0,
+    joined:''
+  }
+}
+
 class App extends Component{
   constructor(){
     super()
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user:{
-        id:'',
-        name:'',
-        email:'',
-        entries: 0,
-        joined:''
-      }
-    }
+    this.state = initialState;
   }
 
   calculateFaceLocation = (data) => {
@@ -122,7 +124,7 @@ displayFaceBox = (box) => {
 
     onRouteChange = (route) => {
       if(route === 'signout'){
-        this.setState({isSignedIn: false})
+        this.setState(initialState)
       }else if(route === 'home'){
         this.setState({isSignedIn: true})
       }
