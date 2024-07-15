@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
-// import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
@@ -19,7 +18,7 @@ import './App.css';
  const returnClarifaiRequestOptions = (imageUrl) => {
     
     // Your PAT (Personal Access Token) can be found in the Account's Security section
-    const PAT = 'YOUR_PAT_KEY';
+    // const PAT = 'YOUR_PAT_KEY';
     // Specify the correct user_id/app_id pairings
     // Since you're making inferences outside your app's scope
     const USER_ID = 't6u13lb9e7m7';       
